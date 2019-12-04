@@ -1,3 +1,6 @@
+from puzzle.utils import run_test
+
+
 PUZZLE_INPUT = "372304-847060"
 
 
@@ -53,6 +56,16 @@ def has_repeated_integer(password):
 
 
 if __name__ == '__main__':
+    run_test(111111, True, is_never_decreasing)
+    run_test(111111, True, has_repeated_integer)
+    run_test(111111, True, is_valid_password)
+    run_test(223450, False, is_never_decreasing)
+    run_test(223450, True, has_repeated_integer)
+    run_test(223450, False, is_valid_password)    
+    run_test(123789, True, is_never_decreasing)
+    run_test(123789, False, has_repeated_integer)
+    run_test(123789, False, is_valid_password)
+
     password_int_range = parse_password_int_range()
     valid_passwords = [
         i for i in password_int_range
