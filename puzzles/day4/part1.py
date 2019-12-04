@@ -43,7 +43,7 @@ def is_never_decreasing(password):
     return is_increasing
 
 
-def has_repeat_adjacent_integer(password):
+def has_repeated_adjacent_integer(password):
     password = str(password)
     has_repeat = False
     for i in range(len(password)-1):
@@ -56,12 +56,12 @@ def has_repeat_adjacent_integer(password):
 
 if __name__ == '__main__':
     run_test(111111, True, is_never_decreasing)
-    run_test(111111, True, has_repeat_adjacent_integer)
+    run_test(111111, True, has_repeated_adjacent_integer)
     run_test(223450, False, is_never_decreasing)
-    run_test(223450, True, has_repeat_adjacent_integer)
+    run_test(223450, True, has_repeated_adjacent_integer)
     run_test(223450, False, is_valid_password)    
     run_test(123789, True, is_never_decreasing)
-    run_test(123789, False, has_repeat_adjacent_integer)
+    run_test(123789, False, has_repeated_adjacent_integer)
     run_test(123789, False, is_valid_password)
 
     password_int_range = parse_password_int_range()
