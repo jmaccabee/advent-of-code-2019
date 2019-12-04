@@ -112,6 +112,9 @@ def get_segment_coordinates_and_distance(
         elapsed_distance,
         ascending_step,
     ):
+    # FIGURING OUT THAT I WAS PREVIOUSLY STEPPING 
+    # IN THE WRONG DIRECTION FOR MY ELAPSED DISTANCE
+    # HALF THE TIME TOOK ME AN HOUR...
     if not ascending_step:
         x_coordinates.reverse()
         y_coordinates.reverse()
