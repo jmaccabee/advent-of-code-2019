@@ -7,7 +7,7 @@ PUZZLE_INPUT = "372304-847060"
 def parse_password_int_range():
     password_int_range = tuple(
         int(int_string) for int_string in 
-        PUZZLE_INPUT.split()
+        PUZZLE_INPUT.split('-')
     )
     return range(*password_int_range)
 
@@ -27,7 +27,7 @@ def is_valid_password(password):
     return (
         correct_length & 
         within_correct_window & 
-        increasing & 
+        not_decreasing & 
         has_double
     )
 
@@ -36,7 +36,7 @@ def is_never_decreasing(password):
     password = str(password)
     is_increasing = True
     i = 0
-    for i in range(len(password)):
+    for i in range(len(password)-1):
         first = password[i]
         second = password[i+1]
         if second < first:
@@ -47,7 +47,7 @@ def is_never_decreasing(password):
 def has_repeated_integer(password):
     password = str(password)
     has_repeat = False
-    for i in range(len(password)):
+    for i in range(len(password)-1):
         first = password[i]
         second = password[i+1]
         if first == second:
