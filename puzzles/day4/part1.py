@@ -28,7 +28,7 @@ def is_valid_password(password):
         correct_length & 
         within_correct_window & 
         not_decreasing & 
-        has_double
+        has_repeat_integer
     )
 
 
@@ -58,7 +58,6 @@ def has_repeated_integer(password):
 if __name__ == '__main__':
     run_test(111111, True, is_never_decreasing)
     run_test(111111, True, has_repeated_integer)
-    run_test(111111, True, is_valid_password)
     run_test(223450, False, is_never_decreasing)
     run_test(223450, True, has_repeated_integer)
     run_test(223450, False, is_valid_password)    
