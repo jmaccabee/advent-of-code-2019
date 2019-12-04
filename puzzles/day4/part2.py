@@ -18,6 +18,7 @@ def is_valid_password(password):
     has_repeat_adjacent_integer, repeated_ints = has_repeated_adjacent_ints(
         password
     )
+    print(repeated_ints)
     repeated_adjacent_integer_is_unique = has_unique_adjacent_integer(
         password,
         repeated_ints,
@@ -33,7 +34,9 @@ def is_valid_password(password):
 
 
 def has_unique_adjacent_integer(password, repeated_ints):
-    for repeat in repeated_ints:
+    password = str(password)
+    for repeated_int in repeated_ints:
+        repeat = repeated_int * 2
         count = 0
         for i in range(len(password)-1):
             if repeat == f"{password[i]}{password[i+1]}":
@@ -44,21 +47,37 @@ def has_unique_adjacent_integer(password, repeated_ints):
 
 
 def has_repeated_adjacent_ints(password):
-    repeated_ints = []
     password = str(password)
+    repeated_ints = set()
     has_repeat = False
     for i in range(len(password)-1):
         first = password[i]
         second = password[i+1]
         if first == second:
             has_repeat = True
-            repeated_ints.append(first)
+            repeated_ints.add(first)
+    print(has_repeat, repeated_ints)
     return has_repeat, repeated_ints
 
 
 if __name__ == '__main__':
-    run_test(111333, False, has_unique_adjacent_integer)
-    run_test(111233, False, has_unique_adjacent_integer)
+    # run_test(
+    #     '111233', 
+    #     (True, {'1', '3'}), 
+    #     has_repeated_adjacent_ints,
+    # )
+    # run_test(
+    #     ('111333', {'1', '3'}), 
+    #     False, 
+    #     has_unique_adjacent_integer,
+    #     expand_inputs=True
+    # )
+    run_test(
+        ('111233', {'1', '3'}), 
+        True, 
+        has_unique_adjacent_integer,
+        expand_inputs=True
+    )
 
     password_int_range = parse_password_int_range()
     valid_passwords = [
