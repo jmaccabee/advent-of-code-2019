@@ -1,7 +1,5 @@
 from puzzles.utils import run_test
-
-
-PUZZLE_INPUT = "372304-847060"
+from puzzles.day4.constants import PUZZLE_INPUT, REQUIRED_LENGTH
 
 
 def parse_password_int_range():
@@ -13,7 +11,6 @@ def parse_password_int_range():
 
 
 def is_valid_password(password):
-    REQUIRED_LENGTH = 6
     password_int_range = parse_password_int_range()
 
     correct_length = (len(str(password)) == REQUIRED_LENGTH)
@@ -22,13 +19,15 @@ def is_valid_password(password):
         (password <= password_int_range[-1])
     )
     not_decreasing = is_never_decreasing(password)
-    has_repeat_integer = has_repeated_integer(password)
+    has_repeat_adjacent_integer = has_repeated_adjacent_integer(
+        password
+    )
 
     return (
         correct_length & 
         within_correct_window & 
         not_decreasing & 
-        has_repeat_integer
+        has_repeat_adjacent_integer
     )
 
 
@@ -44,7 +43,7 @@ def is_never_decreasing(password):
     return is_increasing
 
 
-def has_repeated_integer(password):
+def has_repeat_adjacent_integer(password):
     password = str(password)
     has_repeat = False
     for i in range(len(password)-1):
@@ -57,12 +56,12 @@ def has_repeated_integer(password):
 
 if __name__ == '__main__':
     run_test(111111, True, is_never_decreasing)
-    run_test(111111, True, has_repeated_integer)
+    run_test(111111, True, has_repeat_adjacent_integer)
     run_test(223450, False, is_never_decreasing)
-    run_test(223450, True, has_repeated_integer)
+    run_test(223450, True, has_repeat_adjacent_integer)
     run_test(223450, False, is_valid_password)    
     run_test(123789, True, is_never_decreasing)
-    run_test(123789, False, has_repeated_integer)
+    run_test(123789, False, has_repeat_adjacent_integer)
     run_test(123789, False, is_valid_password)
 
     password_int_range = parse_password_int_range()
