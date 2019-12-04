@@ -1,3 +1,6 @@
+from puzzles.utils import run_test
+
+
 def read_inputs():
     with open('puzzles/day3/inputs.txt') as input_file:
         inputs = input_file.readlines()
@@ -116,6 +119,39 @@ def vector_from_string(vector_string):
 
 
 if __name__ == '__main__':
+    # run a few unit tests to make sure our functions are correct
+    run_test('R100', (100, 0), vector_from_string)
+    run_test(
+        (-100, 0), 
+        list(range(-100, 1)), 
+        get_vector_coordinates, 
+        expand_inputs=True
+    )
+    run_test(
+        (100, 0), 
+        list(range(0, 101)), 
+        get_vector_coordinates,
+        expand_inputs=True
+    )
+    run_test(
+        (0, 0), 
+        [0], 
+        get_vector_coordinates,
+        expand_inputs=True
+    )
+    run_test(
+        ([0, 1], [0]), 
+        [(0, 0), (1, 0)], 
+        get_segment_coordinates,
+        expand_inputs=True,
+    )
+    run_test(
+        [(0, 0), (100, 0), (50, 0)], 
+        50,
+        get_closest_intersection_distance,
+    )
+    print('################################')
+
     # read the inputs
     wire_path_strings = read_inputs()
     # convert the input wire path strings to wire path coordinates
