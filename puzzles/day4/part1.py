@@ -1,4 +1,4 @@
-from puzzle.utils import run_test
+from puzzles.utils import run_test
 
 
 PUZZLE_INPUT = "372304-847060"
