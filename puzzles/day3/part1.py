@@ -118,6 +118,22 @@ def vector_from_string(vector_string):
     return (magnitude * x_direction, magnitude * y_direction)
 
 
+def run_full_test(wire_path_strings):
+    wire_path0 = wire_path_coordinates_from_string(
+        wire_path_strings[0]
+    )
+    wire_path1 = wire_path_coordinates_from_string(
+        wire_path_strings[1]
+    )        
+    # find the intersections between the two wires
+    intersections = get_intersections(wire_path0, wire_path1)
+    # find the distances of the nearest intersection
+    closest_distance = get_closest_intersection_distance(
+        intersections
+    )
+    return closest_distance
+
+
 if __name__ == '__main__':
     # run a few unit tests to make sure our functions are correct
     run_test('R100', (100, 0), vector_from_string)
@@ -150,6 +166,16 @@ if __name__ == '__main__':
         50,
         get_closest_intersection_distance,
     )
+
+    assert run_full_test((
+        "R75,D30,R83,U83,L12,D49,R71,U7,L72".split(','),
+        "U62,R66,U55,R34,D71,R55,D58,R83".split(','),
+    )) == 159
+
+    assert run_full_test((
+        "R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51".split(','),
+        "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7".split(','),
+    )) == 135
     print('################################')
 
     # read the inputs
