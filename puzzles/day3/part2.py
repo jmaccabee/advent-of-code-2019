@@ -8,6 +8,8 @@ from puzzles.day3.part1 import (
 def get_intersection_with_minimum_distance(
         intersections_with_distances
     ):
+    # sort the intersections by distance, ascending
+    # and return the one with the shortest distance
     return sorted(
         intersections_with_distances, 
         key=lambda x: x[1],
@@ -17,15 +19,21 @@ def get_intersection_with_minimum_distance(
 def get_intersections_and_distances(set0, set1, center_coord=(0, 0)):
     intersections_with_distance = []
 
+    # convert our lists of coordinates and distances into sets
+    # of just coordinates so we can do very quick set operations
+    # to find the intersection points
     coordinate_set0 = set(pair[0] for pair in set0)
     coordinate_set1 = set(pair[0] for pair in set1)
     intersections = coordinate_set0.intersection(
         coordinate_set1
     ) 
-    
+    # again remove the center coordinate since it doesn't count
     intersections.remove(center_coord)
 
+    # for each intersection,
     for intersection in intersections:
+        # get the elapsed distance from center
+        # from each of the wires to the intersection point
         dist1 = get_distance_for_matching_coordinate(
             intersection,
             set0,
@@ -34,7 +42,10 @@ def get_intersections_and_distances(set0, set1, center_coord=(0, 0)):
             intersection,
             set1,
         )
+        # add the two distances
         total_distance = dist1 + dist2
+        # and append it, along with the intersection point
+        # to a list of intersections with distances
         intersections_with_distance.append(
             (intersection, total_distance)
         )
@@ -46,6 +57,8 @@ def get_distance_for_matching_coordinate(
         coordinate_to_match, 
         coordinates_and_distances,
     ):
+    # the first time you find the matching coordinate,
+    # return it's distance
     for (coord, dist) in coordinates_and_distances:
         if coord == coordinate_to_match:
             return dist
@@ -61,6 +74,8 @@ def wire_path_coordinates_from_string(
     # unpack center coordinate as x and y
     x, y = center_coord
 
+    # we'll also need to keep track of the 
+    # total elapsed distance from center
     distance_from_center = 0
 
     # calculate the coordinate path of each wire
@@ -77,20 +92,23 @@ def wire_path_coordinates_from_string(
         # since starting coordinate (x, y) is our reference point
         vector_x_coordinates = get_vector_coordinates(x, x + vector[0])
         vector_y_coordinates = get_vector_coordinates(y, y + vector[1])
-        # convert the x and y vector coordinates into an
-        # integer-coordinate line segment
+
+        # since elapsed distance is important in part 2, 
+        # the direction we're moving from the previous point matters
+        # so we can properly keep track of the total distance 
+        # at each incremental coordinate in the line segment
         ascending_step = (
             (vector_string[0] == 'U') or
             (vector_string[0] == 'R')
         )
+        # convert the x and y vector coordinates into an
+        # integer-coordinate line segment
         segment_coordinates_and_distance = get_segment_coordinates_and_distance(
             vector_x_coordinates, 
             vector_y_coordinates,
             distance_from_center,
             ascending_step,
         )
-
-        # calculate the vector distance
 
         # add each integer-coordinate line segment to the wire path
         wire_path_coordinates_and_distances.extend(
@@ -101,6 +119,8 @@ def wire_path_coordinates_from_string(
         # and our distance from center by their absolute values
         x += vector[0]
         y += vector[1]
+
+        # calculate the vector distance
         distance_from_center += (abs(vector[0]) + abs(vector[1]))
         
     return wire_path_coordinates_and_distances
@@ -112,6 +132,12 @@ def get_segment_coordinates_and_distance(
         elapsed_distance,
         ascending_step,
     ):
+    # make sure to order the coordinate lists
+    # properly depending on whether we're moving
+    # towards or away from the center. 
+    # this is important since otherwise the 
+    # direction of our distance counter will be wrong
+    #
     # FIGURING OUT THAT I WAS PREVIOUSLY STEPPING 
     # IN THE WRONG DIRECTION FOR MY ELAPSED DISTANCE
     # HALF THE TIME TOOK ME AN HOUR...
@@ -126,6 +152,7 @@ def get_segment_coordinates_and_distance(
             wire_path.append(
                 ((x_coord, y_coord), elapsed_distance)
             )
+            # keep track of elapsed distance at each step
             elapsed_distance += 1
     return wire_path
 
