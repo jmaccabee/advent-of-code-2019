@@ -4,3 +4,13 @@ Advent of Code is an Advent calendar of small programming puzzles for a variety 
 Thanks to Eric Wastl for publishing this great idea!
 
 Join on the fun here: https://adventofcode.com/2019/
+
+### Completed puzzles:
+- Day 1: **
+- Day 2: **
+- Day 3: **
+- Day 4: **
+- Day 5: **
+- Day 6: 
+- Day 7: 
+- Day 8:
